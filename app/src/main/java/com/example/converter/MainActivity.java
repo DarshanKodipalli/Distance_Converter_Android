@@ -48,13 +48,13 @@ public class MainActivity extends AppCompatActivity {
             inputValue.setText("");
             finalResult.setText("");
             inputHeading.setText("Kilometers: ");
-            outputHeading.setText("~ Miles:");
+            outputHeading.setText("Miles:");
             buttonText.setText("Convert to Miles");
         }else {
             inputValue.setText("");
             finalResult.setText("");
             inputHeading.setText("Miles: ");
-            outputHeading.setText("~ Kilometers : ");
+            outputHeading.setText("Kilometers : ");
             buttonText.setText("Convert to Kilometers");
         }
     }
@@ -89,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 conversionHistory = "";
                 history.setText(conversionHistory);
+                inputValue.setText("");
+                finalResult.setText("");
             }
         });
         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
