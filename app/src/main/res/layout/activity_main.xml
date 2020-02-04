@@ -2,12 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/applicationLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textViewId"
+        android:id="@+id/applicationHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -27,7 +28,7 @@
         android:layout_marginTop="20dp"
         android:checkedButton="@id/mitokms"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewId">
+        app:layout_constraintTop_toTopOf="@+id/applicationHeading">
 
         <RadioButton
             android:id="@+id/mitokms"
@@ -56,7 +57,7 @@
         android:textColor="#FF000000"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewId" />
+        app:layout_constraintTop_toBottomOf="@+id/applicationHeading" />
 
     <EditText
         android:id="@+id/inputValue"
@@ -65,8 +66,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="75dp"
-        android:background="#ffDDDDDD"
+        android:background="@android:color/white"
         android:ems="10"
+        android:hint="Enter Miles Value..."
         android:inputType="numberSigned|numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -80,9 +82,11 @@
         android:layout_marginStart="100dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="80dp"
+        android:background="#3B8471"
+        android:drawableRight="@android:drawable/arrow_down_float"
         android:onClick="onConvertOption"
         android:text="Convert to Kilometers"
-        android:drawableRight="@android:drawable/arrow_down_float"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputValue" />
@@ -105,15 +109,15 @@
         android:layout_height="44dp"
         android:layout_marginTop="16dp"
         android:background="#FFDDDDDD"
-        android:textColor="#FF000000"
         android:clickable="false"
         android:ems="10"
         android:inputType="textPersonName"
+        android:textColor="#FF000000"
         app:layout_constraintStart_toStartOf="@+id/inputValue"
         app:layout_constraintTop_toBottomOf="@+id/convert" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/conversionHistoryHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -123,26 +127,26 @@
         app:layout_constraintStart_toStartOf="@+id/convertedResult"
         app:layout_constraintTop_toBottomOf="@+id/convertedResult" />
 
-    <EditText
+    <TextView
         android:id="@+id/conversionHistory"
         android:layout_width="359dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="5dp"
         android:background="#FFDDDDDD"
         android:clickable="false"
         android:ems="10"
         android:gravity="top|left"
         android:inputType="textMultiLine"
-        android:lines="20"
-        android:minLines="10"
-        android:overScrollMode="always"
+        android:lines="10"
+        android:maxLines="5"
+        android:overScrollMode="ifContentScrolls"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbarStyle="insideInset"
         android:scrollbars="vertical"
         android:scrollHorizontally="true"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintStart_toStartOf="@id/conversionInput"
+        app:layout_constraintTop_toBottomOf="@+id/conversionHistoryHeading" />
 
     <Button
         android:id="@+id/clearHistory"
@@ -150,10 +154,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:width="330dp"
-        android:background="#FF8080"
+        android:background="#FF3333"
         android:drawableRight="@android:drawable/ic_menu_close_clear_cancel"
         android:onClick="onClickingClearHistory"
         android:text="Clear"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="@+id/conversionHistory"
         app:layout_constraintStart_toStartOf="@+id/conversionHistory"
         app:layout_constraintTop_toBottomOf="@+id/conversionHistory" />
