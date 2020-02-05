@@ -8,6 +8,8 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
@@ -59,10 +61,28 @@ public class MainActivity extends AppCompatActivity {
         conversionHistoryHeadingText.setTextColor(Color.parseColor("#FF000000"));
         applicationHeading = findViewById(R.id.applicationHeading);
         applicationHeading.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+        inputValue.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.length()>0){
+                    finalResult.setText("");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     public void onClickingRadioButton(View view){
-         radioInput = ((RadioButton) view).getText().toString();
+        radioInput = ((RadioButton) view).getText().toString();
         String textViewField = ((TextView) view).getText().toString();
         if(radioInput.equals("Kilometers to Miles")){
             inputValue.setHint("Enter distance in Kilometers...");
@@ -122,25 +142,37 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickingClearHistory(View view){
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Clear History");
-        alert.setMessage("Are you sure? It cannot be undone!!");
-        alert.setPositiveButton("Clear", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                conversionHistory = "";
-                history.setText(conversionHistory);
-                inputValue.setText("");
-                finalResult.setText("");
-            }
-        });
-        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                history.setText(conversionHistory);
-            }
-        });
-        alert.create().show();
+        if(conversionHistory.equals("")){
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setTitle("History Status");
+            alert.setMessage("Conversion history is already cleared!");
+            alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            alert.create().show();
+        }else {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setTitle("Clear History");
+            alert.setMessage("Are you sure? It cannot be undone!!");
+            alert.setPositiveButton("Clear", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    conversionHistory = "";
+                    history.setText(conversionHistory);
+                    inputValue.setText("");
+                    finalResult.setText("");
+                }
+            });
+            alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    history.setText(conversionHistory);
+                }
+            });
+            alert.create().show();
+        }
     }
 
     @Override
@@ -153,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
         outState.putString("OutputHeading", outputHeading.getText().toString());
         outState.putString("ButtonText",buttonText.getText().toString());
         outState.putString("InputValueHint",inputValue.getHint().toString());
+        outState.putString("CurrentState",radioInput);
         super.onSaveInstanceState(outState);
     }
 
@@ -168,5 +201,6 @@ public class MainActivity extends AppCompatActivity {
         outputHeading.setText(savedInstanceState.getString("OutputHeading"));
         buttonText.setText(savedInstanceState.getString("ButtonText"));
         inputValue.setHint(savedInstanceState.getString("InputValueHint"));
+        radioInput = savedInstanceState.getString("CurrentState");
     }
 }
